@@ -3,24 +3,18 @@ from rest_framework import serializers
 from .models import Poll, QuestionAnswerOption, Question, Answer
 
 
-class PollSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Poll
-        fields = '__all__'
-
-
-class AnswerOptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = QuestionAnswerOption
-        fields = ('id', 'text')
-
-
 class AnswerSerializer(serializers.ModelSerializer):
     selected_answers_options = serializers.ListField(read_only=True)
 
     class Meta:
         model = Answer
         exclude = ('id', 'user_id', 'question')
+
+
+class AnswerOptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionAnswerOption
+        fields = ('id', 'text')
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -30,6 +24,22 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         exclude = ('poll',)
+
+
+class PollListQuestionSerializer(serializers.ModelSerializer):
+    answer_options = AnswerOptionSerializer(many=True)
+
+    class Meta:
+        model = Question
+        exclude = ('poll',)
+
+
+class PollSerializer(serializers.ModelSerializer):
+    questions = PollListQuestionSerializer(many=True)
+
+    class Meta:
+        model = Poll
+        fields = '__all__'
 
 
 class PassedPollSerializer(PollSerializer):

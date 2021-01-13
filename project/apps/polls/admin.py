@@ -11,10 +11,17 @@ class AnswerOptionInlineAdmin(admin.StackedInline):
     classes = ['collapse']
 
 
+class QuestionInlineAdmin(admin.StackedInline):
+    model = Question
+    extra = 0
+    classes = ['collapse']
+
+
 # Register your models here.
 @admin.register(Poll)
 class PollAdmin(admin.ModelAdmin):
     list_display = ['name', 'start_date', 'end_date', 'description']
+    inlines = [QuestionInlineAdmin]
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # obj is not None, so this is an edit

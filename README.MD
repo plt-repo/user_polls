@@ -6,6 +6,9 @@
 > docker-compose up --build
 
 #### Админка доступна по адресу - http://0.0.0.0:8000/admin
+Данные для входа:
+**username - admin,
+password - admin**
 
 #### Документация API будет доступна при переходе по следующим адресам:
 Redoc - http://0.0.0.0:8000/polls/redoc/

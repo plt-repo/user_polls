@@ -22,8 +22,8 @@ class QuestionSerializer(serializers.ModelSerializer):
     answer = serializers.SerializerMethodField('get_answers_by_user_id')
 
     def get_answers_by_user_id(self, question):
-        answers_by_user_id_qs = question.answer.filter(user_id=self.context['view'].kwargs['user_id'])
-        serializer = AnswerSerializer(answers_by_user_id_qs, many=True, context=self.context)
+        answers_by_user_id_qs = question.answer.filter(user_id=self.context['view'].kwargs['user_id']).first()
+        serializer = AnswerSerializer(answers_by_user_id_qs, context=self.context)
 
         return serializer.data
 

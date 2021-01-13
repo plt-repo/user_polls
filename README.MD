@@ -11,5 +11,5 @@
 password - admin**
 
 #### Документация API будет доступна при переходе по следующим адресам:
+Swagger - http://0.0.0.0:8000/polls/swagger/,
 Redoc - http://0.0.0.0:8000/polls/redoc/
-Swagger - http://0.0.0.0:8000/polls/swagger/

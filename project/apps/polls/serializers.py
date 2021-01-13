@@ -8,7 +8,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Answer
-        exclude = ('id', 'user_id', 'question')
+        exclude = ('id', 'question', 'user_id')
 
 
 class AnswerOptionSerializer(serializers.ModelSerializer):
@@ -19,7 +19,14 @@ class AnswerOptionSerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     answer_options = AnswerOptionSerializer(many=True)
-    answer = AnswerSerializer(many=True)
+    answer = serializers.SerializerMethodField('get_answers_by_user_id')
+
+    def get_answers_by_user_id(self, question):
+        user_id = self.context['view'].kwargs['user_id']
+        answers_by_user_id_qs = question.answer.filter(user_id=user_id)
+        serializer = AnswerSerializer(answers_by_user_id_qs, many=True, context=self.context)
+
+        return serializer.data
 
     class Meta:
         model = Question

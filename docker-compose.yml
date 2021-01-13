@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    command: >
+      bash -c "python /user_polls_app/manage.py migrate
+      && python /user_polls_app/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/user_polls_app
+    ports:
+      - 8000:8000

@@ -8,7 +8,6 @@ class AnswerOptionInlineAdmin(admin.StackedInline):
     model = QuestionAnswerOption
     fields = ['text']
     extra = 0
-    classes = ['collapse']
 
 
 class QuestionInlineAdmin(admin.StackedInline):
@@ -21,6 +20,7 @@ class QuestionInlineAdmin(admin.StackedInline):
 @admin.register(Poll)
 class PollAdmin(admin.ModelAdmin):
     list_display = ['name', 'start_date', 'end_date', 'description']
+    search_fields = ['name', 'description']
     inlines = [QuestionInlineAdmin]
 
     def get_readonly_fields(self, request, obj=None):
@@ -32,7 +32,8 @@ class PollAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
+    search_fields = ['text']
     list_display = ['id', 'type', 'text']
-    list_filter = ['poll']
+    list_filter = ['poll', 'type']
 
     inlines = [AnswerOptionInlineAdmin]

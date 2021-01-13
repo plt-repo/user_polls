@@ -9,3 +9,16 @@ services:
       - .:/user_polls_app
     ports:
       - 8000:8000
+    depends_on:
+      - db
+  db:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - "POSTGRES_DB=user_polls"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=admin"
+volumes:
+  postgres_data:

@@ -5,6 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DEBUG 1
 ENV SECRET_KEY j_@4)aa&nzqqjqs0xasril1zi(%-w)c4$1)fsahpu@$$&^8@rk
+ENV DATABASE_URL postgres://postgres:admin@db:5432/user_polls
 ENV DJANGO_SETTINGS_MODULE project.settings.base
 # Create a working directory for the django project
 WORKDIR /user_polls_app
